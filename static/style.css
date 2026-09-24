@@ -1,0 +1,43 @@
+:root {
+  color: #24190f;
+  background: #f4efe4;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+}
+body { margin: 0; }
+main { max-width: 1000px; margin: 0 auto; padding: 28px 20px 48px; }
+header { display: flex; justify-content: space-between; align-items: end; gap: 24px; }
+h1 { margin: 0; font-size: 32px; }
+h2 { margin: 0 0 8px; font-size: 15px; }
+header p, #decision { color: #5c5146; line-height: 1.45; }
+.score { font-size: 42px; font-variant-numeric: tabular-nums; }
+canvas {
+  width: 100%;
+  height: auto;
+  margin-top: 16px;
+  background: #f7f3ea;
+  border: 1px solid #e2d8c8;
+  border-radius: 16px;
+}
+.controls, .readout { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+.controls { margin-top: 14px; }
+button, label {
+  border: 1px solid #d9cbb8;
+  background: white;
+  border-radius: 999px;
+  padding: 8px 14px;
+}
+button.active { background: #24190f; color: white; }
+#status { color: #5c5146; }
+.readout { align-items: stretch; margin-top: 18px; }
+.readout > div { flex: 1; min-width: 280px; background: white; border-radius: 16px; padding: 16px; }
+pre {
+  white-space: pre-wrap;
+  margin: 0;
+  font-family: ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 1.45;
+}
+.bar { display: grid; grid-template-columns: 52px 1fr 52px; gap: 8px; align-items: center; margin: 8px 0; }
+.bar div { height: 10px; background: #efe7db; border-radius: 99px; overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: #0f6e56; }
+.bar b { text-align: right; font-variant-numeric: tabular-nums; }

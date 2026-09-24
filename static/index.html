@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dino Jump</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <h1>Dino Jump</h1>
+        <p>The same kind of run as the browser dinosaur. A planner labels each move. Laya picks one.</p>
+      </div>
+      <div class="score" id="score">0</div>
+    </header>
+    <canvas id="game" width="960" height="280"></canvas>
+    <section class="controls">
+      <button id="watch" class="active" type="button">Watch Laya</button>
+      <button id="play" type="button">Play yourself</button>
+      <label><input id="assisted" type="checkbox" checked> Tell Laya which moves are safe</label>
+      <span id="status">Starting the model…</span>
+    </section>
+    <section class="readout">
+      <div>
+        <h2>What Laya was asked</h2>
+        <pre id="prompt">Waiting for the first obstacle.</pre>
+      </div>
+      <div>
+        <h2>Answer</h2>
+        <div class="bar"><span>Jump</span><div><i id="bar-jump"></i></div><b id="p-jump">–</b></div>
+        <div class="bar"><span>Duck</span><div><i id="bar-duck"></i></div><b id="p-duck">–</b></div>
+        <div class="bar"><span>Run</span><div><i id="bar-run"></i></div><b id="p-run">–</b></div>
+        <p id="decision">No decision yet.</p>
+      </div>
+    </section>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
