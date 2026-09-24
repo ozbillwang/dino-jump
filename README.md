@@ -1,31 +1,62 @@
 # Dino Jump
 
-A small runner in the style of the browser dinosaur game. The page runs the physics. Before each move it writes a short English description, and Laya English picks `jump`, `duck`, or `run`.
-
-The checked option, "Tell Laya which moves are safe", matches the public demos: a planner simulates the three actions and tells the model which ones collide. Laya is choosing among those labels. It does not see the canvas. Turn the option off to send only the distance and obstacle name.
-
-If the model picks a move the planner has marked as a collision, the page keeps Laya's probabilities on screen and executes the safe move instead. That count is the shield.
-
-
+A small runner in the style of the browser dinosaur game. The page runs the physics. A planner writes the current situation in English, and Laya English scores `jump`, `duck`, or `run`.
 
 https://github.com/user-attachments/assets/28d08ae4-b4dd-45b5-9366-bfff3666d1f0
 
+## How a frame works
 
+Laya does not see the canvas. Each frame has two parts: the planner moves the dinosaur, and, about 11 times a second, Laya reads the sentence the planner just wrote.
+
+1. The game starts and the dinosaur runs. Laya English is loaded once, on this Mac.
+2. Every frame, ordinary code reads the positions. It tries the jump in a private copy of the game and finds the last moment a jump still clears the next pillar. It writes three labels and marks one of them `Best`. The dinosaur does that move immediately.
+3. About every 90 ms, that same text is sent to Laya. The question is fixed: pick `jump`, `duck`, or `run`. Laya returns a probability for each label. The bars on the page are those numbers.
+
+If Laya picks the safe label, the note says so. If it picks a label marked as a collision, the dinosaur still does `Best`, and the shield count goes up. Then step 2 runs on the next frame.
+
+```mermaid
+sequenceDiagram
+  participant Game
+  participant Planner
+  participant Laya
+  Game->>Planner: Pillar distance, dino height, speed
+  Planner->>Planner: Try jump, duck, and run in a copy
+  Planner->>Game: Three labels, one marked Best
+  Game->>Game: Dinosaur takes Best now
+  Game->>Laya: The sentence and the three labels
+  Laya->>Game: Probability for jump, duck, and run
+  alt Laya picks a safe label
+    Game->>Game: Show the probabilities
+  else Laya picks a collision
+    Game->>Game: Show the probabilities and keep Best
+  end
+```
+
+One sentence the planner can write:
+
+```text
+Dino runner game. One cactus ahead, 146 px away.
+Recommended action: run.
+
+jump: Too early. A jump now lands on the obstacle.
+duck: Collision. Hits the obstacle.
+run: Safe. Stay down and jump later. Best.
+```
+
+The checked option, "Tell Laya which moves are safe", includes those Safe / Collision / Best lines. Turn it off and Laya receives only the distance and the obstacle name. The dinosaur still follows the planner.
 
 ## Run
 
 The English MLX weights already cached on this Mac are used. No download is required.
 
 ```bash
-virtualvenv venv
-source venv/bin/active
-pip install -r requirements.txt
-python server.py
+cd "/Volumes/Extreme SSD/github/ozbillwang/dino-jump"
+.venv/bin/python server.py
 ```
 
 Open http://127.0.0.1:8876
 
-Space or the up arrow jumps. The down arrow ducks. "Play yourself" ignores the model.
+Space or the up arrow jumps. The down arrow ducks. "Play yourself" ignores the planner and the model.
 
 ## Check
 
