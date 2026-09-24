@@ -50,8 +50,10 @@ The checked option, "Tell Laya which moves are safe", includes those Safe / Coll
 The English MLX weights already cached on this Mac are used. No download is required.
 
 ```bash
-cd "/Volumes/Extreme SSD/github/ozbillwang/dino-jump"
-.venv/bin/python server.py
+virtualvenv venv
+source venv/bin/active
+pip install -r requirements.txt
+python server.py
 ```
 
 Open http://127.0.0.1:8876
