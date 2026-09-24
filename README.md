@@ -6,6 +6,12 @@ The checked option, "Tell Laya which moves are safe", matches the public demos: 
 
 If the model picks a move the planner has marked as a collision, the page keeps Laya's probabilities on screen and executes the safe move instead. That count is the shield.
 
+
+
+https://github.com/user-attachments/assets/28d08ae4-b4dd-45b5-9366-bfff3666d1f0
+
+
+
 ## Run
 
 The English MLX weights already cached on this Mac are used. No download is required.
